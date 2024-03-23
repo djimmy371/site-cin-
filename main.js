@@ -1,166 +1,37 @@
-// Fonction pour obtenir les détails d'un film
-function getMovieDetails(movieId) {
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=e68f4fc7136ec12bfeb833e681ce8f32&language=fr-FR`)
-        .then(response => response.json())
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            console.error('Une erreur s\'est produite lors de la récupération des détails du film :', error);
-            return null;
-        });
-}
-
-// Fonction pour afficher les films populaires
-function displayPopularMovies() {
-    fetch('https://api.themoviedb.org/3/movie/popular?api_key=e68f4fc7136ec12bfeb833e681ce8f32&language=fr-FR')
-        .then(response => response.json())
-        .then(data => {
-            const moviesContainer = document.getElementById('movies');
-            const upcommingMoviesContainer = document.getElementById('upcoming-movies-container');
-            if (upcommingMoviesContainer) {
-                data.results.forEach(movie => {
-                    const movieElement = document.createElement('div');
-                    movieElement.classList.add('movie');
-
-                    const img = document.createElement('img');
-                    img.src = 'https://image.tmdb.org/t/p/w200' + movie.poster_path;
-                    img.alt = movie.title;
-
-                    const title = document.createElement('div');
-                    title.classList.add('title');
-                    title.textContent = movie.title;
-
-                    movieElement.appendChild(img);
-                    movieElement.appendChild(title);
-
-                    const link = document.createElement('a');
-                    link.href = '#'; // Mettez l'URL de la page de détails ici
-                    link.addEventListener('click', () => displayMovieDetails(movie.id));
-                    link.appendChild(movieElement);
-
-                    upcommingMoviesContainer.appendChild(link);
-                });
-            } else {
-                console.error('L\'élément upcoming-movies-container n\'a pas été trouvé');
-            }
-        })
-            .catch(error => {
-                console.error('Une erreur s\'est produite lors de la sélection des films a venir :', error);
-            });
-    }
-
-// Fonction pour afficher les détails du film
-function displayMovieDetails(movieId) {
-    // Récupérer les détails du film
-    getMovieDetails(movieId)
-        .then(details => {
-            if (details) {
-                // Rediriger vers la page de détails du film avec les informations nécessaires
-                window.location.href = `details.html?movieId=${details.id}`;
-            }
-        });
-}
-
-// Charger les films populaires au chargement de la page
-window.onload = displayPopularMovies;
-
-
-
-function getMovieDetails(movieId) {
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=e68f4fc7136ec12bfeb833e681ce8f32&language=fr-FR`)
-        .then(response => response.json())
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            console.error('Une erreur s\'est produite lors de la récupération des détails du film :', error);
-            return null;
-        });
-}
-
-function getUserRatings(movieId) {
-    return fetch(`https://api.themoviedb.org/3/movie/${movieId}/ratings?api_key=e68f4fc7136ec12bfeb833e681ce8f32`)
-        .then(response => response.json())
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            console.error('Une erreur s\'est produite lors de la récupération des évaluations des utilisateurs :', error);
-            return null;
-        });
-}
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjhmNGZjNzEzNmVjMTJiZmViODMzZTY4MWNlOGYzMiIsInN1YiI6IjY1ZmIyNTExMDQ3MzNmMDE0YWU1ZDU4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JIxo5MWsUoNO8gZPBs663OUwBcZnp-gmTSHIM0bzhkM';
-    const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32'; // Votre clé API TMDb
-
-    fetch(`https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch user account details');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const userId = data.id;
-            if (!userId) {
-                throw new Error('User ID not found in response');
-            }
-
-            fetch(`https://api.themoviedb.org/3/account/${userId}/rated/movies?api_key=${apiKey}&language=en-US&sort_by=created_at.asc`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch user rated movies');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const moviesContainer = document.getElementById('movies');
-                    if (!data.results || data.results.length === 0) {
-                        moviesContainer.innerHTML = '<p>No rated movies found.</p>';
-                        return;
-                    }
-
-                    data.results.forEach(movie => {
-                        const movieDiv = document.createElement('div');
-                        movieDiv.classList.add('movie');
-                        movieDiv.innerHTML = `
-                            <h2>${movie.title}</h2>
-                            <p>User Rating: ${movie.rating}</p>
-                            <p>Rated At: ${movie.created_at}</p>
-                        `;
-                        moviesContainer.appendChild(movieDiv);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching rated movies:', error.message);
-                    const moviesContainer = document.getElementById('movies');
-                    moviesContainer.innerHTML = '<p>Error fetching rated movies. Please try again later.</p>';
-                });
-        })
-        .catch(error => {
-            console.error('Error fetching user account details:', error.message);
-            const moviesContainer = document.getElementById('movies');
-            moviesContainer.innerHTML = '<p>Error fetching user account details. Please try again later.</p>';
-        });
-});
-
 const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32';
 
-function fetchMovieGenres() {
-    const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
+function fetchUpcomingMovies() {
+    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            const genres = data.genres.map(genre => genre.name);
-            console.log('List of movie genres:', genres);
+            displayUpcomingMovies(data.results);
         })
         .catch(error => {
-            console.error('Error fetching movie genres:', error);
+            console.error('Error fetching upcoming movies:', error);
         });
 }
 
-fetchMovieGenres();
+function displayUpcomingMovies(movies) {
+    const upcomingMoviesContainer = document.getElementById('upcoming-movies');
+    upcomingMoviesContainer.innerHTML = ''; // Clear previous content
+    
+    movies.forEach(movie => {
+        const movieDiv = document.createElement('div');
+        movieDiv.classList.add('movie');
+
+        const title = document.createElement('p');
+        title.textContent = movie.title;
+
+        const releaseDate = document.createElement('p');
+        releaseDate.textContent = `Release Date: ${movie.release_date}`;
+
+        movieDiv.appendChild(title);
+        movieDiv.appendChild(releaseDate);
+
+        upcomingMoviesContainer.appendChild(movieDiv);
+    });
+}
+
+fetchUpcomingMovies();
