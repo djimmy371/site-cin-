@@ -1,10 +1,8 @@
-const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32';
-
-function fetchUpcomingMovies(apiKey) {
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0]; // Extraction de la partie de la date au format YYYY-MM-DD
-    const encodedDate = encodeURIComponent(formattedDate); // Encodage de la date pour inclure dans l'URL
-    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&primary_release_date.gte=${encodedDate}`;
+const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32'; // Remplacez par votre propre clé API TMDb
+const releaseDate = '2024-03-23'; // Ou la date que vous souhaitez utiliser
+fetchUpcomingMovies(apiKey, releaseDate);
+function fetchUpcomingMovies(apiKey, releaseDate) {
+    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&primary_release_date.gte=${releaseDate}`;
 
     fetch(url)
         .then(response => response.json())
@@ -15,6 +13,9 @@ function fetchUpcomingMovies(apiKey) {
             console.error('Error fetching upcoming movies:', error);
         });
 }
+
+
+
 function displayUpcomingMovies(movies) {
     const upcomingMoviesContainer = document.getElementById('upcoming-movies');
     upcomingMoviesContainer.innerHTML = ''; // Clear previous content
