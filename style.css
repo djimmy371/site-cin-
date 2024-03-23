@@ -35,3 +35,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 15rem;
 }
+.description {
+    font-size: 5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
