@@ -1,7 +1,7 @@
 const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32';
 
 function fetchUpcomingMovies() {
-    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`;
+    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=e68f4fc7136ec12bfeb833e681ce8f32`;
 
     fetch(url)
         .then(response => response.json())
