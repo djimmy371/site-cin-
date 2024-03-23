@@ -17,13 +17,14 @@ function displayPopularMovies() {
         .then(response => response.json())
         .then(data => {
             const moviesContainer = document.getElementById('movies');
-            if (moviesContainer) {
+            const upcommingMoviesContainer = document.getElementById('upcoming-movies-container');
+            if (upcommingMoviesContainer) {
                 data.results.forEach(movie => {
                     const movieElement = document.createElement('div');
                     movieElement.classList.add('movie');
 
                     const img = document.createElement('img');
-                    img.src = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
+                    img.src = 'https://image.tmdb.org/t/p/w200' + movie.poster_path;
                     img.alt = movie.title;
 
                     const title = document.createElement('div');
@@ -33,22 +34,21 @@ function displayPopularMovies() {
                     movieElement.appendChild(img);
                     movieElement.appendChild(title);
 
-                    // Créer un lien pour afficher les détails du film au clic
                     const link = document.createElement('a');
                     link.href = '#'; // Mettez l'URL de la page de détails ici
                     link.addEventListener('click', () => displayMovieDetails(movie.id));
                     link.appendChild(movieElement);
 
-                    moviesContainer.appendChild(link);
+                    upcommingMoviesContainer.appendChild(link);
                 });
             } else {
-                console.error('L\'élément movies n\'a pas été trouvé.');
+                console.error('L\'élément upcoming-movies-container n\'a pas été trouvé');
             }
         })
-        .catch(error => {
-            console.error('Une erreur s\'est produite lors de la récupération des films populaires :', error);
-        });
-}
+            .catch(error => {
+                console.error('Une erreur s\'est produite lors de la sélection des films a venir :', error);
+            });
+    }
 
 // Fonction pour afficher les détails du film
 function displayMovieDetails(movieId) {
