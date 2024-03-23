@@ -93,7 +93,7 @@ function getUserRatings(movieId) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjhmNGZjNzEzNmVjMTJiZmViODMzZTY4MWNlOGYzMiIsInN1YiI6IjY1ZmIyNTExMDQ3MzNmMDE0YWU1ZDU4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JIxo5MWsUoNO8gZPBs663OUwBcZnp-gmTSHIM0bzhkM'; // Remplacez 'YOUR_ACCESS_TOKEN' par votre jeton d'accès
+    const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjhmNGZjNzEzNmVjMTJiZmViODMzZTY4MWNlOGYzMiIsInN1YiI6IjY1ZmIyNTExMDQ3MzNmMDE0YWU1ZDU4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JIxo5MWsUoNO8gZPBs663OUwBcZnp-gmTSHIM0bzhkM';
     const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32'; // Votre clé API TMDb
 
     fetch(`https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`)
@@ -146,3 +146,21 @@ document.addEventListener('DOMContentLoaded', function() {
             moviesContainer.innerHTML = '<p>Error fetching user account details. Please try again later.</p>';
         });
 });
+
+const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32';
+
+function fetchMovieGenres() {
+    const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const genres = data.genres.map(genre => genre.name);
+            console.log('List of movie genres:', genres);
+        })
+        .catch(error => {
+            console.error('Error fetching movie genres:', error);
+        });
+}
+
+fetchMovieGenres();
