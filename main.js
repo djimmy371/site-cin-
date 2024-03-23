@@ -91,16 +91,38 @@ function getUserRatings(movieId) {
         });
 }
 
+
 document.addEventListener('DOMContentLoaded', function() {
     const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjhmNGZjNzEzNmVjMTJiZmViODMzZTY4MWNlOGYzMiIsInN1YiI6IjY1ZmIyNTExMDQ3MzNmMDE0YWU1ZDU4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JIxo5MWsUoNO8gZPBs663OUwBcZnp-gmTSHIM0bzhkM'; // Remplacez 'YOUR_ACCESS_TOKEN' par votre jeton d'accès
-    fetch(`https://api.themoviedb.org/3/account?api_key=e68f4fc7136ec12bfeb833e681ce8f32&session_id=${accessToken}`)
-        .then(response => response.json())
+    const apiKey = 'e68f4fc7136ec12bfeb833e681ce8f32'; // Votre clé API TMDb
+
+    fetch(`https://api.themoviedb.org/3/account?api_key=${apiKey}&session_id=${accessToken}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user account details');
+            }
+            return response.json();
+        })
         .then(data => {
             const userId = data.id;
-            fetch(`https://api.themoviedb.org/3/account/${userId}/rated/movies?api_key=YOUR_API_KEY&language=en-US&sort_by=created_at.asc`)
-                .then(response => response.json())
+            if (!userId) {
+                throw new Error('User ID not found in response');
+            }
+
+            fetch(`https://api.themoviedb.org/3/account/${userId}/rated/movies?api_key=${apiKey}&language=en-US&sort_by=created_at.asc`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user rated movies');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     const moviesContainer = document.getElementById('movies');
+                    if (!data.results || data.results.length === 0) {
+                        moviesContainer.innerHTML = '<p>No rated movies found.</p>';
+                        return;
+                    }
+
                     data.results.forEach(movie => {
                         const movieDiv = document.createElement('div');
                         movieDiv.classList.add('movie');
@@ -112,7 +134,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         moviesContainer.appendChild(movieDiv);
                     });
                 })
-                .catch(error => console.error(':', error));
+                .catch(error => {
+                    console.error('Error fetching rated movies:', error.message);
+                    const moviesContainer = document.getElementById('movies');
+                    moviesContainer.innerHTML = '<p>Error fetching rated movies. Please try again later.</p>';
+                });
         })
-        .catch(error => console.error(':', error));
+        .catch(error => {
+            console.error('Error fetching user account details:', error.message);
+            const moviesContainer = document.getElementById('movies');
+            moviesContainer.innerHTML = '<p>Error fetching user account details. Please try again later.</p>';
+        });
 });
