@@ -1,0 +1,136 @@
+/* VERSION ORDINATEUR */
+
+
+/* IMPORT POLICES */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+
+
+/* 
+Couleur rouge : #DE2020
+Couleur noir : #262626
+Couleur jaune : #F5E81A */
+
+/* ---------------------------------INIT ---------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    transition: background-color 0.3s;
+}
+/* ---------------------------------INIT ---------------------------------*/
+/*  */
+/*  */
+/* -------------------------navbar------------------------- */
+section.navbar {
+}
+
+#container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.container-navbar {
+    background-color: #DE2020;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding-top: 0.8%;
+    padding-bottom: 0.8%;
+    padding-right: 5%;
+    padding-left: 5%;
+
+}
+
+.dark-mode .container-navbar {
+    background-color: #333333;
+}
+.dark-mode .container-navbar a {
+    color: #ffffff;
+}
+
+
+nav {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    
+}
+
+/* -----------------MODULE 1----------------- */
+nav a.logo {
+    display: flex;
+    background-color: aliceblue;
+    margin-right: 15%;
+}
+/* -----------------MODULE 1----------------- */
+/*  */
+/*  */
+/* -----------------MODULE 2----------------- */
+.navbar-links {
+    display: flex;
+    width: 20%;
+    justify-content: center;
+    justify-content:  space-between;
+    margin-right: 10%;
+    list-style: none;
+}
+
+.navbar-links li {
+    display: flex;
+    flex-direction: row;
+    
+    
+}
+
+.navbar-links li a {
+    display: flex;
+    flex-direction: row;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+/* -----------------MODULE 2----------------- */
+/*  */
+/*  */
+/* -----------------MODULE 3----------------- */
+.nav-search-bar {
+    display: flex;
+    margin-right: 20%;
+}
+
+#search-nav {
+    background-color: #fff;
+    border: 2px solid #262626;
+}
+/* -----------------MODULE 3----------------- */
+/*  */
+/*  */
+/* -----------------MODULE 4----------------- */
+.nav-icons {
+    display: flex;
+}
+
+.nav-icons span {
+    color: #262626;
+    font-size: 1.5rem;
+}
+
+.dark-mode  {
+    background-color: #333333;
+     color: #ffffff;
+}
+
+.dark-mode .nav-icons span {
+    color: #ffffff;
+}
+/* -----------------MODULE 4----------------- */

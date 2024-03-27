@@ -5,15 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Films à Venir</title>
     <link rel="stylesheet" href="assets/css/accueil.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
+    <section class="navbar">
+        <div class="container-navbar">
+            <nav>
+                <a href="#" class="logo"> 
+                    <img src="assets/img/" alt="logo">
+                </a>
+                <ul class="navbar-links">
+                    <li><a href="#">blablabla</a></li>
+                    <li><a href="#">blablabla</a></li>
+                </ul>
+                <div class="nav-search-bar">
+                    <input id="search-nav" type="text"  placeholder="Rechercher...">
+                </div>
+                <div class="nav-icons">
+                    <span id="darkModeToggle" class="material-symbols-outlined">
+                        brightness_2
+                    </span>
+                </div>
+            </nav>
+        </div>
+    </section>
+
     <h1>Films à Venir</h1>
     <div id="upcoming-movies" class="movies-container"></div>
 
     <h2>Films d'horreur</h2>
     <div id="horror-movies" class="movies-container"></div>
 
-    <script type="module" src="assets/js/main.js"></script>
-
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/darkMode.js"></script>
 </body>
 </html>

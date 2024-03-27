@@ -19,7 +19,6 @@ function fetchUpcomingMovies() {
         });
 }
 
-
 function displayUpcomingMovies(movies) {
     const upcomingMoviesContainer = document.getElementById('upcoming-movies');
     upcomingMoviesContainer.innerHTML = ''; // Clear previous content
@@ -56,7 +55,6 @@ function displayUpcomingMovies(movies) {
     });
 }
 
-
 function fetchHorrorMovies() {
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27`;
 
@@ -76,7 +74,6 @@ function fetchHorrorMovies() {
 
 }
 
-
 function displayHorrorMovies(movies) {
     const horrorMoviesContainer = document.getElementById('horror-movies');
     horrorMoviesContainer.innerHTML = ''; // Clear previous content
@@ -85,9 +82,9 @@ function displayHorrorMovies(movies) {
         return;
     }
     
-    movies.forEach (movie => {
+    movies.forEach(movie => {
         const movieDiv = document.createElement('div');
-        movieDiv.classList.add('movie');
+        movieDiv.classList.add('movie', 'horror-movie'); // Ajoutez une classe spécifique
 
         const title = document.createElement('p');
         title.textContent = movie.title;
@@ -104,14 +101,56 @@ function displayHorrorMovies(movies) {
             poster.alt = 'Image non disponible';
         }
 
+        // Ajouter les éléments au conteneur principal
         movieDiv.appendChild(poster);
         movieDiv.appendChild(title);
         movieDiv.appendChild(releaseDate);
 
         horrorMoviesContainer.appendChild(movieDiv);
     });
+
+
+   // Obtenez la boîte modale et le bouton de fermeture
+const modal = document.getElementById('movie-details-modal');
+const closeButton = document.getElementsByClassName('close')[0];
+
+// Fonction pour afficher les détails du film dans la boîte modale
+function showMovieDetails(movie) {
+    const modalTitle = document.getElementById('modal-movie-title');
+    const modalOverview = document.getElementById('modal-movie-overview');
+    const modalReleaseDate = document.getElementById('modal-movie-release-date');
+    
+    modalTitle.textContent = movie.title;
+    modalOverview.textContent = movie.overview;
+    modalReleaseDate.textContent = `Date de sortie : ${movie.release_date}`;
+
+    modal.style.display = 'block';
+}
+
+// Fermez la boîte modale lorsque l'utilisateur clique sur le bouton de fermeture
+closeButton.onclick = function() {
+    modal.style.display = 'none';
+}
+
+// Fermez la boîte modale lorsque l'utilisateur clique en dehors de celle-ci
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+
+    // Initialiser le carousel une fois que les éléments sont ajoutés
+    $('.slick-carousel').slick({
+        slidesToShow: 3, // Nombre de films à afficher à la fois
+        slidesToScroll: 1, // Nombre de films à faire défiler à la fois
+        autoplay: true, // Activer l'autoplay
+        autoplaySpeed: 2000, // Vitesse de l'autoplay en millisecondes
+    });
 }
 
 // Call the fetchUpcomingMovies function
-fetchUpcomingMovies();
-fetchHorrorMovies();
+window.addEventListener('DOMContentLoaded', (event) => {
+    fetchUpcomingMovies();
+    fetchHorrorMovies();
+});

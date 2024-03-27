@@ -1,10 +1,19 @@
 @import "nav.css";
 @import "footer.css";
+@import "accueil-mobile.css";
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* Couleur rouge : #DE2020
+Couleur noir : #262626
+Couleur jaune : #F5E81A  */
+
+
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    line-height: 1.5;
 }
 
 h1 {
@@ -31,4 +40,28 @@ h2 {
 
 .movie p {
     margin: 5px 0;
+}
+
+.slick-carousel-container {
+}
+
+/* Styles pour les éléments du carousel */
+.slick-slide {
+    display: inline-block;
+    margin: 0 10px;
+}
+.slick-slide img {
+    border: 2px solid #F5E81A ;
+    padding: 5px;
+}
+.movie-container {
+    position: relative;
+}
+
+.movie-details {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%; /* Position à côté de l'affiche */
+    /* Styles supplémentaires pour les détails du film */
 }

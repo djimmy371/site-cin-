@@ -1,0 +1,14 @@
+/* Styles pour le conteneur du carousel */
+.slick-carousel {
+    width: 100%; /* Définir la largeur du carousel */
+}
+
+/* Styles pour les éléments du carousel */
+.slick-slide {
+    margin: 0 10px; /* Marge entre les éléments du carousel */
+}
+
+/* Cacher les éléments du carousel qui ne sont pas visibles */
+.slick-slide:not(.slick-active) {
+    display: none;
+}

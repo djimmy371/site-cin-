@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
+    "jquery": "^3.7.1",
     "node-fetch": "^2.7.0",
-    "node-themoviedb": "^0.2.8"
+    "node-themoviedb": "^0.2.8",
+    "slick-carousel": "^1.8.1"
   }
 }

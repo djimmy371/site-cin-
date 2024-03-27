@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/carousel.css">
+    <link rel="stylesheet" href="assets/css/accueil.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
+
+    <title>Document</title>
+</head>
+<body>
+    <h1>Films d'horreur</h1>
+
+    <section>
+        <div class="slick-carousel-container">
+        <div id="horror-movies" class="movies-container slick-carousel"></div>
+    </div>
+    </section>
+    <div id="movie-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-movie-title"></h2>
+            <p id="modal-movie-overview"></p>
+            <p id="modal-movie-release-date"></p>
+        </div>
+    </div>
+
+    <br>
+
+    <div id="upcoming-movies" class="movies-container"></div>
+
+
+</body>
+<script src="assets/js/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+
+</html>
